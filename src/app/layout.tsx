@@ -7,6 +7,13 @@ import { Inter as FontSans } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import QueryProvider from "@/components/QueryProvider";
+
+// Create a client
+const queryClient = new QueryClient();
+
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -27,17 +34,19 @@ export default function RootLayout({
       <body
         className={cn("min-h-screen font-sans antialiased", fontSans.variable)}
       >
-        <ThemeProvider
-          attribute='class'
-          defaultTheme='system'
-          enableSystem
-          disableTransitionOnChange
-        >
-          <ToastContainer />
-          <Navbar />
-          <main className='container my-4'>{children}</main>
-          <Footer />
-        </ThemeProvider>
+        <QueryProvider>
+          <ThemeProvider
+            attribute='class'
+            defaultTheme='system'
+            enableSystem
+            disableTransitionOnChange
+          >
+            <ToastContainer />
+            <Navbar />
+            <main className='container my-4'>{children}</main>
+            <Footer />
+          </ThemeProvider>
+        </QueryProvider>
       </body>
     </html>
   );

@@ -11,7 +11,7 @@ import { FC } from "react";
 import { Button } from "../ui/button";
 import { Link } from "../ui/link";
 
-const Card: FC<INote> = ({ id, title, description, completed }) => {
+export const Card: FC<INote> = ({ id, title, description, completed }) => {
   return (
     <CardComponent>
       <CardHeader>
@@ -39,5 +39,3 @@ const Card: FC<INote> = ({ id, title, description, completed }) => {
     </CardComponent>
   );
 };
-
-export default Card;
