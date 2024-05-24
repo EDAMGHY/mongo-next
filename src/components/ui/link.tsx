@@ -1,4 +1,4 @@
-import { buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui";
 import { ILink } from "@/types";
 import { default as NextLink } from "next/link";
 import { FC } from "react";

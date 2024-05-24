@@ -4,17 +4,23 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@/components/ui";
 import { cn } from "@/lib/utils";
 import { INote } from "@/types";
 import { FC } from "react";
 import { Button } from "../ui/button";
 import { Link } from "../ui/link";
 
-export const Card: FC<INote> = ({ id, title, description, completed }) => {
+export const Card: FC<INote & { handleDeleteNote: (id: string) => void }> = ({
+  id,
+  title,
+  description,
+  completed,
+  handleDeleteNote,
+}) => {
   return (
     <CardComponent>
-      <CardHeader>
+      <CardHeader className='overflow-hidden'>
         {title && (
           <CardTitle
             className={cn({ "line-through filter blur-[2px]": completed })}
@@ -34,7 +40,9 @@ export const Card: FC<INote> = ({ id, title, description, completed }) => {
         <Link href={`/notes/${id}`} variant='secondary'>
           Edit
         </Link>
-        <Button variant='destructive'>Delete</Button>
+        <Button onClick={() => handleDeleteNote(id)} variant='destructive'>
+          Delete
+        </Button>
       </CardFooter>
     </CardComponent>
   );

@@ -1,4 +1,6 @@
-import { H1 } from "@/components/ui/typography";
+"use client";
+
+import { H1 } from "@/components/ui";
 import { NotesCards, Wrapper } from "@/components/widgets";
 
 export default function Home() {
