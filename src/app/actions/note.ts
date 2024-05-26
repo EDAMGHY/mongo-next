@@ -10,16 +10,21 @@ export const createNote = async (data: INoteValues) =>
   });
 
 // GET ALL NOTES
-export const getNotes = async () => await prisma.note.findMany();
+export const getNotes = async (userId: string) =>
+  await prisma.note.findMany({
+    where: {
+      userId,
+    },
+  });
 
 // GET SINGLE NOTE
-export const getNote = async (id: string) =>
-  await prisma.note.findFirst({ where: { id } });
+export const getNote = async (id: string, userId: string) =>
+  await prisma.note.findFirst({ where: { id, userId } });
 
 // GET ALL NOTES
 export const updateNote = async (id: string, data: INoteValues) =>
   await prisma.note.update({ where: { id }, data });
 
 // GET ALL NOTES
-export const deleteNote = async (id: string) =>
-  await prisma.note.delete({ where: { id } });
+export const deleteNote = async (id: string, userId: string) =>
+  await prisma.note.delete({ where: { id, userId } });

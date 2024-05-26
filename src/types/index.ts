@@ -3,8 +3,9 @@ import { HTMLAttributes, ReactNode } from "react";
 import { buttonVariants } from "@/components/ui/button";
 import { VariantProps } from "class-variance-authority";
 import { FieldValues, SubmitHandler, UseFormReturn } from "react-hook-form";
-import { formSchema } from "@/lib/utils";
+import { formSchema, loginFormSchema } from "@/lib/utils";
 import { z } from "zod";
+import { Session } from "next-auth";
 
 export interface INote {
   id: string;
@@ -13,12 +14,14 @@ export interface INote {
   completed: boolean;
   createdAt?: Date;
   updatedAt?: Date;
+  userId: string;
 }
 
 export type INoteValues = Omit<INote, "id">;
 
 export interface ITypography {
   children: ReactNode;
+  className?: string;
 }
 export interface IWrapper extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
@@ -31,7 +34,9 @@ export interface ILink extends LinkProps, VariantProps<typeof buttonVariants> {
 export interface IForm {
   onSubmit: SubmitHandler<INoteValues>;
   form: FormProps;
-  isPending: boolean;
+  isPending?: boolean;
+  children?: ReactNode;
+  className?: string;
 }
 
 export interface FormProps extends FieldValues {
@@ -39,3 +44,4 @@ export interface FormProps extends FieldValues {
 }
 
 export type IFormSchema = z.infer<typeof formSchema>;
+export type ILoginFormSchema = z.infer<typeof loginFormSchema>;

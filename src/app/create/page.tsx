@@ -1,6 +1,6 @@
 "use client";
 
-import { H2 } from "@/components/ui";
+import { H1 } from "@/components/ui";
 import { Wrapper } from "@/components/widgets";
 import { Form } from "@/components/widgets/Form";
 
@@ -11,8 +11,12 @@ import { createNote } from "@/actions/note";
 import { useRouter } from "next/navigation";
 import { formSchema } from "@/lib/utils";
 import { IFormSchema } from "@/types";
+import { useSession } from "next-auth/react";
 
 const CreateNote = () => {
+  const { data: session } = useSession();
+  const userId = session?.user?.id;
+
   const router = useRouter();
   const form = useForm<IFormSchema>({
     resolver: zodResolver(formSchema),
@@ -35,18 +39,15 @@ const CreateNote = () => {
   });
 
   const onSubmit = (data: IFormSchema) => {
-    console.log("data", { data });
-
-    createNoteMutation(data);
+    const note = { ...data, userId };
+    createNoteMutation(note);
     router.push("/");
   };
 
   return (
-    <Wrapper>
-      <div className='max-w-xl py-5 space-y-8 mx-auto'>
-        <H2>Add Note</H2>
-        <Form form={form} onSubmit={onSubmit} isPending={isPending} />
-      </div>
+    <Wrapper className='space-y-8 py-5'>
+      <H1>Add Note</H1>
+      <Form form={form} onSubmit={onSubmit} isPending={isPending} />
     </Wrapper>
   );
 };

@@ -8,3 +8,4 @@ export * from "./label";
 export * from "./link";
 export * from "./textarea";
 export * from "./typography";
+export * from "./avatar";

@@ -1,13 +1,14 @@
 "use client";
 
 import { getNote, updateNote } from "@/actions/note";
-import { H2 } from "@/components/ui";
+import { H1 } from "@/components/ui";
 import { Wrapper } from "@/components/widgets";
 import { Form } from "@/components/widgets/Form";
 import { formSchema } from "@/lib/utils";
 import { INote, IFormSchema } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useSession } from "next-auth/react";
 import { revalidatePath } from "next/cache";
 import { useRouter, useParams } from "next/navigation";
 import { useEffect } from "react";
@@ -15,14 +16,15 @@ import { useForm } from "react-hook-form";
 
 const NoteDetails = () => {
   const { id } = useParams();
-
+  const { data: session } = useSession();
+  const userId = session?.user?.id;
   const {
     data: note = {} as INote,
     error,
     isFetching,
   } = useQuery({
     queryKey: ["note", id],
-    queryFn: () => getNote(id as string),
+    queryFn: () => getNote(id as string, userId as string),
   });
 
   const router = useRouter();
@@ -45,7 +47,7 @@ const NoteDetails = () => {
 
   // Mutations
   const { mutate: updateNoteMutation, isPending } = useMutation({
-    mutationFn: () => updateNote(id as string, form.getValues()),
+    mutationFn: () => updateNote(id as string, { ...form.getValues(), userId }),
     onSuccess: () => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["notes"] });
@@ -56,16 +58,15 @@ const NoteDetails = () => {
   });
 
   const onSubmit = (data: IFormSchema) => {
-    updateNoteMutation(id as any, data as any);
+    const formData = { ...data, userId };
+    updateNoteMutation(id as any, formData as any);
     router.push("/");
   };
 
   return (
-    <Wrapper>
-      <div className='max-w-xl py-5 space-y-8 mx-auto'>
-        <H2>Note Details {id}</H2>
-        <Form form={form} onSubmit={onSubmit} isPending={isPending} />
-      </div>
+    <Wrapper className='py-5 space-y-8 '>
+      <H1>Note Details {id}</H1>
+      <Form form={form} onSubmit={onSubmit} isPending={isPending} />
     </Wrapper>
   );
 };

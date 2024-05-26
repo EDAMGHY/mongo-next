@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ModeToggle } from "@/components/ModeToggle";
+import { AuthButton } from "./AuthButton";
 
 const Navbar = () => {
   return (
@@ -33,6 +34,7 @@ const Navbar = () => {
             </li>
           </ul>
           <ModeToggle />
+          <AuthButton />
         </div>
       </div>
     </nav>

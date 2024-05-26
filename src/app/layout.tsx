@@ -26,24 +26,27 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en'>
-      <body
-        className={cn("min-h-screen font-sans antialiased", fontSans.variable)}
-      >
-        <ThemeProvider
-          attribute='class'
-          defaultTheme='system'
-          enableSystem
-          disableTransitionOnChange
+    <QueryProvider>
+      <html lang='en'>
+        <body
+          className={cn(
+            "min-h-screen font-sans antialiased",
+            fontSans.variable
+          )}
         >
-          <QueryProvider>
+          <ThemeProvider
+            attribute='class'
+            defaultTheme='system'
+            enableSystem
+            disableTransitionOnChange
+          >
             <ToastContainer />
             <Navbar />
             <main className='container my-4'>{children}</main>
             <Footer />
-          </QueryProvider>
-        </ThemeProvider>
-      </body>
-    </html>
+          </ThemeProvider>
+        </body>
+      </html>
+    </QueryProvider>
   );
 }
