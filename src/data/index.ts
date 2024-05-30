@@ -1,29 +1,33 @@
 import { randomString } from "@/lib/utils";
-import { INote } from "@/types";
+import { ITask } from "@/types";
 
-export const notes: INote[] = [
+export const tasks: ITask[] = [
   {
     id: randomString(),
-    title: "My first note",
-    description: "My first note description",
+    title: "My first task",
+    description: "My first task description",
     completed: false,
+    userId: "1",
   },
   {
     id: randomString(),
-    title: "My second note",
-    description: "My second note description",
+    title: "My second task",
+    description: "My second task description",
     completed: true,
+    userId: "1",
   },
   {
     id: randomString(),
-    title: "My third note",
-    description: "My third note description",
+    title: "My third task",
+    description: "My third task description",
     completed: false,
+    userId: "1",
   },
   {
     id: randomString(),
-    title: "My fourth note",
-    description: "My fourth note description",
+    title: "My fourth task",
+    description: "My fourth task description",
     completed: true,
+    userId: "1",
   },
 ];

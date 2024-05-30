@@ -4,8 +4,7 @@ import GithubProvider from "next-auth/providers/github";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import prisma from "@/prisma";
 import { Adapter } from "next-auth/adapters";
-
-// import CredentialsProvider from "next-auth/providers/credentials";
+import CredentialsProvider from "next-auth/providers/credentials";
 
 const authConfig: NextAuthOptions = {
   providers: [
@@ -16,6 +15,32 @@ const authConfig: NextAuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    }),
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+        email: {
+          label: "Email",
+          type: "email",
+          placeholder: "Enter your email...",
+        },
+      },
+      async authorize(credentials) {
+        try {
+          const email = credentials?.email as string;
+          const user = await prisma.user.findUnique({ where: { email } });
+
+          if (!user) {
+            return null;
+          }
+
+          return user;
+        } catch (err) {
+          throw new Error(
+            "There is some issue in the server, Please try again later..."
+          );
+        }
+      },
     }),
   ],
   adapter: PrismaAdapter(prisma) as Adapter,
@@ -87,6 +112,7 @@ const authConfig: NextAuthOptions = {
   },
   pages: {
     signIn: "/login",
+    error: "/error",
   },
   session: { strategy: "jwt" },
 };

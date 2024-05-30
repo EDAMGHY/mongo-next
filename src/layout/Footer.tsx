@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className='border-t py-5 border-border/80'>
       <div className='container space-y-6'>
         <div className='flex items-center gap-5 justify-between'>
-          <h1 className='text-3xl font-bold'>NotesApp</h1>
+          <h1 className='text-3xl font-bold'>TasksApp</h1>
           <ul className='flex justify-start items-center gap-2'>
             <li>
               <Link
@@ -37,7 +37,7 @@ const Footer = () => {
 
         <hr className='h-px w-full bg-border/80' />
         <p className='text-center'>
-          Copyright for <b>NotesApp</b> &copy; {new Date().getFullYear()}
+          Copyright for <b>TasksApp</b> &copy; {new Date().getFullYear()}
         </p>
       </div>
     </footer>

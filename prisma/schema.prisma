@@ -13,7 +13,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Note {
+model Task {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   title       String
   description String
@@ -32,7 +32,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-  notes         Note[]
+  tasks         Task[]
 }
 
 model Account {

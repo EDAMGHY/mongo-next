@@ -1,3 +1,3 @@
 export * from "./Card";
-export * from "./NotesCards";
+export * from "./TasksCards";
 export * from "./wrapper";

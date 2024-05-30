@@ -1,49 +1,70 @@
-import {
-  Card as CardComponent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui";
 import { cn } from "@/lib/utils";
-import { INote } from "@/types";
+import { ITask } from "@/types";
 import { FC } from "react";
-import { Button } from "../ui/button";
-import { Link } from "../ui/link";
+import Link from "next/link";
+import { FaPen, FaTrash } from "react-icons/fa";
+import { AiOutlineCloseCircle, AiOutlineCheckCircle } from "react-icons/ai";
 
-export const Card: FC<INote & { handleDeleteNote: (id: string) => void }> = ({
+export const Card: FC<
+  ITask & {
+    onToggleCompletedTask: (id: string, completed: boolean) => void;
+    handleDeleteTask: (id: string) => void;
+  }
+> = ({
   id,
   title,
   description,
   completed,
-  handleDeleteNote,
+  handleDeleteTask,
+  onToggleCompletedTask,
 }) => {
   return (
-    <CardComponent>
-      <CardHeader className='overflow-hidden'>
+    <div className='gap-2 overflow-hidden flex justify-start items-center border border-gray-200 rounded-md dark:border-gray-800'>
+      <button
+        onClick={() => onToggleCompletedTask(id, completed)}
+        className='size-8 flex justify-center items-center bg-gray-700 rounded-r-md'
+      >
+        {completed ? (
+          <AiOutlineCheckCircle size={20} />
+        ) : (
+          <AiOutlineCloseCircle size={20} />
+        )}
+      </button>
+      <div className='py-4 px-2 flex-1'>
         {title && (
-          <CardTitle
-            className={cn({ "line-through filter blur-[2px]": completed })}
+          <h2
+            className={cn("text-xl", {
+              "line-through filter blur-[1px]": completed,
+            })}
           >
             {title}
-          </CardTitle>
+          </h2>
         )}
         {description && (
-          <CardDescription
-            className={cn({ "line-through filter blur-[2px]": completed })}
+          <p
+            className={cn("text-gray-400 dark:text-gray-500 text-sm", {
+              "line-through filter blur-[1px]": completed,
+            })}
           >
             {description}
-          </CardDescription>
+          </p>
         )}
-      </CardHeader>
-      <CardFooter className='justify-end gap-4'>
-        <Link href={`/notes/${id}`} variant='secondary'>
-          Edit
+      </div>
+
+      <div className='h-full text-white grid-cols-1 grid'>
+        <Link
+          href={`/tasks/${id}`}
+          className='bg-gray-800 inline-flex items-center justify-center h-full px-4'
+        >
+          <FaPen className='size-4' />
         </Link>
-        <Button onClick={() => handleDeleteNote(id)} variant='destructive'>
-          Delete
-        </Button>
-      </CardFooter>
-    </CardComponent>
+        <button
+          onClick={() => handleDeleteTask(id)}
+          className='bg-destructive h-full px-4'
+        >
+          <FaTrash className='size-4' />
+        </button>
+      </div>
+    </div>
   );
 };

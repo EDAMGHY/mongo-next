@@ -7,7 +7,7 @@ const Navbar = () => {
     <nav className='sticky z-[50] border-b border-border/80 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/40 text-foreground top-0 left-0 w-full py-3'>
       <div className='container flex justify-between items-center'>
         <Link href='/'>
-          <h1 className='text-3xl font-bold'>NotesApp</h1>
+          <h1 className='text-3xl font-bold'>TasksApp</h1>
         </Link>
         <div className='flex items-center gap-4 justify-end'>
           <ul className='flex justify-start items-center gap-4'>

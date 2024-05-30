@@ -16,8 +16,8 @@ const fontSans = FontSans({
 });
 
 export const metadata: Metadata = {
-  title: "NotesApp",
-  description: "Notes App Description",
+  title: "TasksApp",
+  description: "Tasks App Description",
 };
 
 export default function RootLayout({

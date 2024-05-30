@@ -16,22 +16,21 @@ import { Form } from "@/components/widgets/Form";
 import { loginFormSchema } from "@/lib/utils";
 import { ILoginFormSchema } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
-import { FaGithub, FaGoogle } from "react-icons/fa";
+import { FaGithub, FaGoogle, FaSpinner } from "react-icons/fa";
 
 const Login = () => {
   const form = useForm<ILoginFormSchema>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
       email: "",
-      password: "",
     },
   });
 
   const onSubmit = (data: any) => {
     console.log({ data });
+    signIn("credentials", { ...data });
   };
 
   return (
@@ -83,26 +82,9 @@ const Login = () => {
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name='password'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder='Enter Password...'
-                      type='password'
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
 
             <Button type='submit' className='w-full'>
-              {/* {isPending && <Loader size={18} />} */}
+              {/* {isPending && <FaSpinner size={18} />} */}
               Login
             </Button>
           </Form>

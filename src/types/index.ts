@@ -5,9 +5,8 @@ import { VariantProps } from "class-variance-authority";
 import { FieldValues, SubmitHandler, UseFormReturn } from "react-hook-form";
 import { formSchema, loginFormSchema } from "@/lib/utils";
 import { z } from "zod";
-import { Session } from "next-auth";
 
-export interface INote {
+export interface ITask {
   id: string;
   title: string;
   description: string;
@@ -17,7 +16,7 @@ export interface INote {
   userId: string;
 }
 
-export type INoteValues = Omit<INote, "id">;
+export type ITaskValues = Omit<ITask, "id">;
 
 export interface ITypography {
   children: ReactNode;
@@ -32,9 +31,10 @@ export interface ILink extends LinkProps, VariantProps<typeof buttonVariants> {
 }
 
 export interface IForm {
-  onSubmit: SubmitHandler<INoteValues>;
+  onSubmit: SubmitHandler<ITaskValues>;
   form: FormProps;
   isPending?: boolean;
+  dataFetched?: boolean;
   children?: ReactNode;
   className?: string;
 }

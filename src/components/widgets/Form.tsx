@@ -23,6 +23,7 @@ export const Form: FC<IForm> = ({
   children,
   className,
   isPending = false,
+  dataFetched,
 }) => {
   return (
     <CForm {...form}>
@@ -41,7 +42,11 @@ export const Form: FC<IForm> = ({
                 <FormItem>
                   <FormLabel>Title</FormLabel>
                   <FormControl>
-                    <Input placeholder='shadcn' {...field} />
+                    <Input
+                      disabled={dataFetched}
+                      placeholder='Enter Title...'
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -55,7 +60,8 @@ export const Form: FC<IForm> = ({
                   <FormLabel>Description</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder='Tell us a little bit about yourself'
+                      disabled={dataFetched}
+                      placeholder='Enter Description...'
                       className='resize-none'
                       {...field}
                     />
@@ -72,6 +78,7 @@ export const Form: FC<IForm> = ({
                   <FormControl>
                     <Checkbox
                       checked={field.value}
+                      disabled={dataFetched}
                       onCheckedChange={field.onChange}
                     />
                   </FormControl>

@@ -7,13 +7,13 @@ import { Form } from "@/components/widgets/Form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
-import { createNote } from "@/actions/note";
+import { createTask } from "@/actions/task";
 import { useRouter } from "next/navigation";
 import { formSchema } from "@/lib/utils";
 import { IFormSchema } from "@/types";
 import { useSession } from "next-auth/react";
 
-const CreateNote = () => {
+const CreateTask = () => {
   const { data: session } = useSession();
   const userId = session?.user?.id;
 
@@ -30,26 +30,26 @@ const CreateNote = () => {
   const queryClient = useQueryClient();
 
   // Mutations
-  const { mutate: createNoteMutation, isPending } = useMutation({
-    mutationFn: createNote,
+  const { mutate: createTaskMutation, isPending } = useMutation({
+    mutationFn: createTask,
     onSuccess: () => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["notes"] });
+      queryClient.invalidateQueries({ queryKey: ["tasks"] });
     },
   });
 
   const onSubmit = (data: IFormSchema) => {
-    const note = { ...data, userId };
-    createNoteMutation(note);
+    const task = { ...data, userId };
+    createTaskMutation(task);
     router.push("/");
   };
 
   return (
     <Wrapper className='space-y-8 py-5'>
-      <H1>Add Note</H1>
+      <H1>Add Task</H1>
       <Form form={form} onSubmit={onSubmit} isPending={isPending} />
     </Wrapper>
   );
 };
 
-export default CreateNote;
+export default CreateTask;

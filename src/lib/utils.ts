@@ -26,7 +26,4 @@ export const loginFormSchema = z.object({
   email: z.string().email({
     message: "Please enter a valid email address.",
   }),
-  password: z.string().min(MIN_PASSWORD, {
-    message: `Title must be at least ${MIN_PASSWORD} characters.`,
-  }),
 });
