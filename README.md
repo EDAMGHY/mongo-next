@@ -30,9 +30,3 @@ To run the project, you first need to set up the provider environment variables:
    ```bash
    yarn dev
    ```
-
-## TODO :
-- [x] IMPORTANT : Renaming all the Note to Todo 
-- [x] ADD custom email and password register also login
-- [x] ADD a Toggle to switch between completed and uncompleted tasks (and its actions ofc)
-- [x] Continue the Writing the docs
